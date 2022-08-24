@@ -1,4 +1,9 @@
-# Welcome to [Astro](https://astro.build)
+# Project Links
+
+* [Github Source](https://github.com/schminkel/astrojs-applenav-github-pages)
+* [Github Pages Link](https://schminkel.github.io/astrojs-applenav-github-pages/)
+
+## Welcome to [Astro](https://astro.build)
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
 

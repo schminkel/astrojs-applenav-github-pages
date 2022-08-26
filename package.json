@@ -11,5 +11,8 @@
   },
   "devDependencies": {
     "astro": "^1.0.8"
+  },
+  "dependencies": {
+    "@astrojs/image": "^0.3.6"
   }
 }

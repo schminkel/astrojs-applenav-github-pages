@@ -1,0 +1,143 @@
+---
+
+---
+
+<!-- HTML FloatingDayNightSwitch -->
+<div class="fab round" id="fab">
+    <label class="dayNight">
+      <input type="checkbox" />
+      <div></div>
+    </label>
+</div>
+
+
+<!-- CSS FloatingDayNightSwitch -->
+<style>
+  :root {
+    --button-color: white;
+    --button-size: 56px;
+
+    --sun-color: #1c1c1c;
+    --moon-color: #1c1c1c;
+    --moon-sun-transform-color: white;
+    --moon-sun-size: 28px;
+
+    --sun-size: 5px;
+    --sun-sunbeam1: 20px;
+    --sun-sunbeam2: 14px;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  html,
+  body {
+    width: 100%;
+    heigth: 100vh;
+  }
+
+  .round {
+    border-radius: 50%;
+  }
+
+  .fab {
+    position: fixed;
+    bottom: 15px;
+    right: 30px;
+    z-index: 999;
+
+    transition: all 300ms ease-in-out;
+    width: var(--button-size);
+    height: var(--button-size);
+    background-color: var(--button-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    color: white;
+    font-size: 2em;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.16),
+      0px 3px 10px rgba(0, 0, 0, 0.16);
+  }
+</style>
+
+<!-- CSS DayNightSwitch -->
+<style>
+  .dayNight {
+    cursor: pointer;
+  }
+  .dayNight input {
+    display: none;
+  }
+
+  /* moon sizing */
+  .dayNight input + div {
+    border-radius: 50%;
+    width: var(--moon-sun-size);
+    height: var(--moon-sun-size);
+    position: relative;
+    box-shadow: inset calc(var(--moon-sun-size)/2.3) calc((var(--moon-sun-size)/2.3)*(-1)) 0 0 var(--moon-color);
+    transform: scale(1) rotate(-2deg);
+    transition: box-shadow 0.5s ease 0s, transform 0.4s ease 0.1s;
+  }
+  .dayNight input + div:before {
+    content: "";
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: background 0.3s ease;
+  }
+
+  /* sun sizing */
+  .dayNight input + div:after {
+    content: "";
+    width: var(--sun-size);
+    height: var(--sun-size);
+    border-radius: 50%;
+    margin: -2px 0 0 -2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    box-shadow: 0 calc(var(--sun-sunbeam1)*-1) 0 var(--sun-color),
+                0 var(--sun-sunbeam1) 0 var(--sun-color),
+                var(--sun-sunbeam1) 0 0 var(--sun-color),
+                calc(var(--sun-sunbeam1)*-1) 0 0 var(--sun-color),
+                var(--sun-sunbeam2) var(--sun-sunbeam2) 0 var(--sun-color),
+                calc(var(--sun-sunbeam2)*-1) var(--sun-sunbeam2) 0 var(--sun-color),
+                var(--sun-sunbeam2) calc(var(--sun-sunbeam2)*-1) 0 var(--sun-color),
+                calc(var(--sun-sunbeam2)*-1) calc(var(--sun-sunbeam2)*-1) 0 var(--sun-color);
+    transform: scale(0);
+    transition: all 0.3s ease;
+  }
+  .dayNight input:checked + div {
+    box-shadow: inset 24px -24px 0 0 var(--moon-sun-transform-color);
+    transform: scale(0.5) rotate(0deg);
+    transition: transform 0.3s ease 0.1s, box-shadow 0.2s ease 0s;
+  }
+  .dayNight input:checked + div:before {
+    background: var(--sun-color);
+    transition: background 0.3s ease 0.1s;
+  }
+  .dayNight input:checked + div:after {
+    transform: scale(1.5);
+    transition: transform 0.5s ease 0.15s;
+  }
+</style>
+
+
+<!-- JAVASCRIPT FloatingDayNightSwitch -->
+<script is:inline>
+  let fab = document.getElementById("fab");
+  fab.addEventListener("click", function () {
+  });
+</script>

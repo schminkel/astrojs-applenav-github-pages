@@ -5,21 +5,38 @@
 <!-- HTML FloatingDayNightSwitch -->
 <div class="fab round" id="fab">
     <label class="dayNight">
-      <input type="checkbox" />
+      <input type="checkbox" id="theme-checkbox" />
       <div></div>
     </label>
 </div>
 
+<!-- CSS FloatingDayNightSwitch -->
+<style is:global>
+  .theme-light {
+    --sun-color: white;
+    --moon-color: #1c1c1c;
+    --moon-sun-transform-color: white;
+    --button-color: white;
+  }
+
+  .theme-dark {
+    --sun-color: white;
+    --moon-color: #1c1c1c;
+    --moon-sun-transform-color: white;
+    --button-color: #1c1c1c;
+  }
+    
+</style>
 
 <!-- CSS FloatingDayNightSwitch -->
 <style>
   :root {
-    --button-color: white;
+    /*--button-color: white;*/
     --button-size: 56px;
 
-    --sun-color: #1c1c1c;
+    /*--sun-color: white;
     --moon-color: #1c1c1c;
-    --moon-sun-transform-color: white;
+    --moon-sun-transform-color: white;*/
     --moon-sun-size: 28px;
 
     --sun-size: 5px;
@@ -140,4 +157,37 @@
   let fab = document.getElementById("fab");
   fab.addEventListener("click", function () {
   });
+
+  let themeCheckbox = document.getElementById("theme-checkbox");
+  var r = document.querySelector(':root');
+  themeCheckbox.addEventListener("click", function () {
+    toggleTheme();
+  });
+
+  // function to set a given theme/color-scheme
+  function setTheme(themeName) {
+      localStorage.setItem('theme', themeName);
+      document.documentElement.className = themeName;
+  }
+
+  // function to toggle between light and dark theme
+  function toggleTheme() {
+      if (localStorage.getItem('theme') === 'theme-dark') {
+          setTheme('theme-light');
+      } else {
+          setTheme('theme-dark');
+      }
+  }
+
+  // Immediately invoked function to set the theme on initial load
+  (function () {
+      if (localStorage.getItem('theme') === 'theme-dark') {
+          setTheme('theme-dark');
+          document.getElementById('theme-checkbox').checked = true;
+      } else {
+          setTheme('theme-light');
+          document.getElementById('theme-checkbox').checked = false;
+      }
+  })();
+
 </script>

@@ -65,7 +65,6 @@ const closeIconSVG       = "url('" + baseURL + "close-icon.svg')";
                 <a href="#" class="link-bag"></a>
             </li>
         </ul>
-        <div class="horizontal-ruler"></div>
     </nav>
 
     <!-- End of navigation menu items -->
@@ -132,8 +131,10 @@ const closeIconSVG       = "url('" + baseURL + "close-icon.svg')";
         </div>
     </div>
 </div>
+<div class="horizontal-ruler"></div>
 <div class="nav-container-blured-background"></div>
 <div class="overlay"></div>
+
 
 
 
@@ -220,6 +221,26 @@ const closeIconSVG       = "url('" + baseURL + "close-icon.svg')";
         /* Add the blur effect */
         backdrop-filter: blur(8px); /* Chrome */
         -webkit-backdrop-filter: blur(8px); /* Safari */
+    }
+
+    .horizontal-ruler {
+        border: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        background-color: #4c4c4c;
+        background-clip: padding-box;
+        min-width: 100%;
+        width: 100%;
+        min-height: 1px;
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        margin-left: 0px;
+        margin-top: 44px;
+        display: inline-block;
+        vertical-align: top;
     }
 
     .nav-container nav {
@@ -805,23 +826,6 @@ const closeIconSVG       = "url('" + baseURL + "close-icon.svg')";
     span,
     a {
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    }
-
-    .horizontal-ruler {
-        border: 0;
-        -webkit-border-radius: 0;
-        -moz-border-radius: 0;
-        border-radius: 0;
-        background-color: #1c1c1c;
-        background-clip: padding-box;
-        min-width: 100%;
-        width: 100%;
-        min-height: 1px;
-        position: absolute;
-        margin-left: -32px;
-        margin-top: 0px;
-        display: inline-block;
-        vertical-align: top;
     }
 </style>
 

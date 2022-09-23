@@ -1,5 +1,4 @@
 ---
-/* INFO SERVER-JS starts... */
 import { Debug } from "astro/components";
 
 const { baseURL } = Astro.props;
@@ -15,9 +14,19 @@ const bagIconSVGDark = "url('" + baseURL + "bag-icon-dark.svg')";
 
 const closeIconSVGLight = "url('" + baseURL + "close-icon-light.svg')";
 const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
+
+const bagButtonHidden = true;
+const searchButtonHidden = true;
+const logoTextHidden = true;
+const logoText = "Apple"
+
+let searchbarMargin = "120px";
+if (searchButtonHidden) {
+  searchbarMargin = "70px";
+}
 ---
 
-<!-- INFO HTML starts... -->
+<!-- INFO HTML -->
 <div class="nav-container">
   <nav>
     <ul class="mobile-nav">
@@ -34,15 +43,40 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
         <a href="#" class="link-logo"></a>
       </li>
 
-      <li>
-        <a href="" class="link-bag"></a>
-      </li>
+      {(() => {
+        if (bagButtonHidden) {
+          return (
+            <li><p style="width:20px;" ></p></li>
+          );
+        } else {
+          return (
+            <li>
+              <a href="" class="link-bag"></a>
+            </li>
+          );  
+        }
+      })()}
+
     </ul>
 
     <ul class="desktop-nav">
-      <li>
-        <a href="#" class="link-logo"></a>
-      </li>
+      
+      {(() => {
+        if (logoTextHidden) {
+          return (
+            <li>
+              <a href="#" class="link-logo"></a>
+            </li>
+          );
+        } else {
+          return (
+            <li>
+              <a href="#" class="link-logo-text">{logoText}</a>
+            </li>
+          );  
+        }
+      })()}
+      
       <li>
         <a href="#">Mac</a>
       </li>
@@ -64,12 +98,27 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
       <li>
         <a href="#">Support</a>
       </li>
-      <li>
-        <a href="#" class="link-search"></a>
-      </li>
-      <li>
-        <a href="#" class="link-bag"></a>
-      </li>
+
+      {(() => {
+        if (!searchButtonHidden) {
+          return (
+            <li>
+              <a href="#" class="link-search"></a>
+            </li>
+          );
+        }
+      })()}
+
+      {(() => {
+        if (!bagButtonHidden) {
+          return (
+            <li>
+              <a href="" class="link-bag"></a>
+            </li>
+          );
+        }
+      })()}
+
     </ul>
   </nav>
 
@@ -106,42 +155,48 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
     </div>
   </div>
 
-  <div class="mobile-search-container">
-    <div class="link-search"></div>
-    <div class="search-bar">
-      <form action="">
-        <input type="text" placeholder="Search apple.com" />
-      </form>
-    </div>
-    <span class="cancel-btn">Cancel</span>
-
-    <div class="quick-links">
-      <h2>Quick Links</h2>
-      <ul>
-        <li>
-          <a href="#">Visiting an Apple Store FAQ</a>
-        </li>
-        <li>
-          <a href="#">Shop Apple Store Online</a>
-        </li>
-        <li>
-          <a href="#">Accessories</a>
-        </li>
-        <li>
-          <a href="#">AirPods</a>
-        </li>
-        <li>
-          <a href="#">AirTag</a>
-        </li>
-      </ul>
-    </div>
-  </div>
+  {(() => {
+    if (!searchButtonHidden) {
+      return (
+      <div class="mobile-search-container">
+        <div class="link-search"></div>
+        <div class="search-bar">
+          <form action="">
+            <input type="text" placeholder="Search apple.com" />
+          </form>
+        </div>
+        <span class="cancel-btn">Cancel</span>
+        <div class="quick-links">
+          <h2>Quick Links</h2>
+          <ul>
+            <li>
+              <a href="#">Visiting an Apple Store FAQ</a>
+            </li>
+            <li>
+              <a href="#">Shop Apple Store Online</a>
+            </li>
+            <li>
+              <a href="#">Accessories</a>
+            </li>
+            <li>
+              <a href="#">AirPods</a>
+            </li>
+            <li>
+              <a href="#">AirTag</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      );
+    }
+  })()}
+  
 </div>
 <div class="horizontal-ruler"></div>
 <div class="nav-container-blured-background"></div>
 <div class="overlay"></div>
 
-<!-- INFO CSS starts... -->
+<!-- INFO CSS -->
 <style
   is:global
   define:vars={{
@@ -153,6 +208,7 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
     bagIconSVGDark,
     closeIconSVGLight,
     closeIconSVGDark,
+    searchbarMargin,
   }}
 >
   :root {
@@ -175,18 +231,50 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
 
   /* INFO CSS VARS LIGHT */
   .theme-light {
-    --nav-text-color: #1c1c1c;
+    --nav-primary-text-color: #1c1c1c;
+    --nav-secondary-text-color: #9ca3af;
     --nav-background: #ffffffb3;
+    --nav-search-background: #ffffff;
+    --nav-search-input-background: #ebebeb;
     --nav-blured-background: #ffffff00;
-    --nav-horizontal-ruler: #4c4c4c;
+    --nav-border-color: #d3d3d3;
+    --nav-highlight-color: #2997ff;
   }
 
   /* INFO CSS VARS DARK */
   .theme-dark {
-    --nav-text-color: #ffffff;
+    --nav-primary-text-color: #ffffff;
+    --nav-secondary-text-color: #9ca3af;
     --nav-background: #000000b3;
+    --nav-search-background: #000000;
+    --nav-search-input-background: #242426;
     --nav-blured-background: #00000000;
-    --nav-horizontal-ruler: #ffffff;
+    --nav-border-color: #d3d3d3;
+    --nav-highlight-color: #2997ff;
+  }
+
+  /* INFO CSS Logo with Text (link-logo-text) */
+  * .desktop-nav .link-logo-text {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    margin-right: 30px; /* depended on logo text length, space to next element in the row */
+    height: 44px;
+    width: 15px;
+    padding-left: 25px;
+    padding-top: 3px; /* depended on horizontal logo allignment e.g. 0px / 3px */
+    font-weight: 500;
+    font-size: large;
+  }
+  .theme-light .desktop-nav .link-logo-text {
+    background: var(--appleLogoSVGLight);
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .theme-dark .desktop-nav .link-logo-text {
+    background: var(--appleLogoSVGDark);
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   * .link-logo {
@@ -261,7 +349,14 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
 
   * nav .menu-icon .line-1,
   * nav .menu-icon .line-2 {
-    background: var(--nav-text-color);
+    background: var(--nav-primary-text-color);
+  }
+
+  .nav-container nav {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 0 8px;
+    height: 100%;
   }
 
   .nav-container {
@@ -292,7 +387,7 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
-    background-color: var(--nav-horizontal-ruler);
+    background-color: var(--nav-border-color);
     background-clip: padding-box;
     min-width: 100%;
     width: 100%;
@@ -316,16 +411,7 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
     color: var(--nav-background);
     font-family: "Inter", sans-serif;
     font-size: 17px;
-  }
-
-  <!-- INFO CSS Navbar Part 2 -->
-    
-  .nav-container nav {
-    width: 1000px;
-    margin: 0 auto;
-    padding: 0 8px;
-    height: 100%;
-  }
+  }  
 
   nav .desktop-nav {
     display: flex;
@@ -335,7 +421,7 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
   }
 
   nav .desktop-nav li a {
-    color: var(--nav-text-color);
+    color: var(--nav-primary-text-color);
     text-decoration: none;
     font-size: 14px;
     opacity: 0.8;
@@ -392,7 +478,7 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
 
   .overlay.show {
     position: fixed;
-    background: #0000007a; /* TODO fix this */
+    background: var(--nav-background);
     width: 100%;
     height: 100vh;
     left: 0;
@@ -403,7 +489,7 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
   /* INFO CSS Quick Links */
 
   .search-container .quick-links {
-    background: #fff; /* TODO fix this */
+    background: var(--nav-background);
     position: absolute;
     left: 0;
     right: 0;
@@ -414,7 +500,7 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
   .search-container .quick-links h2 {
     text-transform: uppercase;
     font-size: 12px;
-    color: #6e6e73; /* TODO fix this */
+    color: var(--nav-primary-text-color);
     margin: 0 32px;
     margin-top: 10px;
   }
@@ -429,14 +515,14 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
     width: 100%;
     padding: 8px 50px;
     font-size: 14px;
-    color: #1d1d1f; /* TODO fix this */
+    color: var(--nav-background);
     text-decoration: none;
     font-weight: 400;
   }
 
   .search-container .quick-links ul li a:hover {
-    background: #f5f5f5; /* TODO fix this */
-    color: #2997ff; /* TODO fix this */
+    background: var(--nav-background);
+    color: var(--nav-highlight-color);
   }
 
   /* INFO CSS Desktop Nav Animation */
@@ -606,7 +692,7 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
       left: 0;
       width: 100%;
       height: 0vh;
-      background: #000; /* TODO fix this */
+      background: var(--nav-search-background);
       justify-content: start;
       overflow: hidden;
       z-index: -1;
@@ -623,7 +709,7 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
     }
 
     .nav-container .desktop-nav li:first-child {
-      margin-top: 120px;
+      margin-top: var(--searchbarMargin);
     }
 
     .nav-container .desktop-nav .link-logo,
@@ -635,7 +721,7 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
     .nav-container .desktop-nav li a {
       padding: 16px 0;
       display: inline-block;
-      border-bottom: 1px solid #616161; /* TODO fix this */
+      border-bottom: 1px solid var(--nav-border-color);
       width: 100%;
       font-size: 17px;
       transform: translateY(-80px);
@@ -675,7 +761,7 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
       position: absolute;
       height: 1px;
       width: 100%;
-      background: #fff; /* TODO fix this */
+      background: var(--nav-primary-text-color);
       transition-property: transform, top;
       transition-delay: 0ms, 160ms;
       transition-duration: 200ms;
@@ -724,9 +810,9 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
       padding: 12px 36px;
       font-family: "Inter", sans-serif;
       font-size: 17px;
-      background: #1b1b1b; /* TODO fix this */
+      background: var(--nav-search-input-background);
       border: 0;
-      color: #fff; /* TODO fix this */
+      color: var(--nav-primary-text-color);
       border-radius: 8px;
       outline: none;
     }
@@ -735,7 +821,7 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
       position: relative;
       padding: 0 16px;
       margin-top: -30px;
-      border-bottom: 1px solid #616161; /* TODO fix this */
+      border-bottom: 1px solid var(--nav-border-color);
       display: flex;
       padding-bottom: 16px;
       align-items: center;
@@ -766,7 +852,7 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
     /* INFO CSS Cancel Button */
 
     .mobile-search-container .cancel-btn {
-      color: #2997ff; /* TODO fix this --> new highlight color*/
+      color: var(--nav-highlight-color);
       font-size: 17px;
       font-weight: 400;
       cursor: pointer;
@@ -820,7 +906,7 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
     }
 
     .mobile-search-container .quick-links h2 {
-      color: #86868b; /* TODO fix this */
+      color: var(--nav-secondary-text-color);
       font-size: 12px;
       text-transform: uppercase;
       font-weight: 400;
@@ -830,15 +916,15 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
       padding: 16px 0;
       display: inline-block;
       text-decoration: none;
-      color: #fff; /* TODO fix this */
+      color: var(--nav-primary-text-color);
       font-size: 14px;
       font-weight: 400;
-      border-bottom: 1px solid #616161; /* TODO fix this */
+      border-bottom: 1px solid var(--nav-border-color);
       width: 100%;
     }
 
     .mobile-search-container .quick-links ul li a:hover {
-      color: #2997ff; /* TODO fix this */
+      color: var(--nav-highlight-color);
     }
 
     /* INFO CSS Nav Animation */
@@ -855,18 +941,23 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
   }
 </style>
 
+<!-- INFO SCRIPT -->
 <script is:inline>
+
+  // Desktop Version
   const searchButton = document.querySelector("nav .desktop-nav .link-search");
   const closeButton = document.querySelector(".search-container .link-close");
   const desktopNav = document.querySelector(".desktop-nav");
   const searchContainer = document.querySelector(".search-container");
   const overlay = document.querySelector(".overlay");
 
-  searchButton.addEventListener("click", () => {
-    desktopNav.classList.add("hide");
-    searchContainer.classList.remove("hide");
-    overlay.classList.add("show");
-  });
+  if (searchButton !== null) {
+    searchButton.addEventListener("click", () => {
+      desktopNav.classList.add("hide");
+      searchContainer.classList.remove("hide");
+      overlay.classList.add("show");
+    });
+  }
 
   closeButton.addEventListener("click", () => {
     desktopNav.classList.remove("hide");
@@ -897,15 +988,20 @@ const closeIconSVGDark = "url('" + baseURL + "close-icon-dark.svg')";
     ".mobile-search-container .cancel-btn"
   );
 
-  searchInput.addEventListener("click", () => {
-    searchBar.classList.add("active");
-    nav.classList.add("move-up");
-    desktopNav.classList.add("move-down");
-  });
-
-  cancelBtn.addEventListener("click", () => {
-    searchBar.classList.remove("active");
-    nav.classList.remove("move-up");
-    desktopNav.classList.remove("move-down");
-  });
+  if (searchInput !== null) {
+    searchInput.addEventListener("click", () => {
+      searchBar.classList.add("active");
+      nav.classList.add("move-up");
+      desktopNav.classList.add("move-down");
+    });
+  }
+  
+  if (cancelBtn !== null) {
+    cancelBtn.addEventListener("click", () => {
+      searchBar.classList.remove("active");
+      nav.classList.remove("move-up");
+      desktopNav.classList.remove("move-down");
+    });
+  }
+  
 </script>
